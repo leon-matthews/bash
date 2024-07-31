@@ -35,7 +35,9 @@ psgrep()
 # Delete python cruft
 # '*.pyc', '*.pyo' files, and '__pycache__' directories
 pyc() {
-    find . -type f -name '*.py[co]' -delete -or -type d -name '__pycache__' -delete
+    find . -type f -name '*.py[co]' -delete \
+        -or -type d -name '__pycache__' -delete \
+        -or -type d -name '.mypy_cache' -delete
 }
 
 
@@ -66,4 +68,15 @@ function retry {
     then
         echo "Command failed $RETRIES times, aborting: ($@)" 1>&2
     fi
+}
+
+
+# Rust Run and Run and Run
+function rrun {
+    while true
+    do
+        clear
+        cargo run
+        inotifywait -qq -e create,delete,modify,move -r src/;
+    done
 }
