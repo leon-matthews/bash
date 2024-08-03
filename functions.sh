@@ -75,18 +75,17 @@ function retry {
 function rrun {
     while true
     do
-        cargo run -q $@
+        cargo run -q "$@"
 
-        # Cargo returns error code 101 if not even in a project
-        if [ $? -eq 101 ]; then
-            break;
+        # Build in some latency when things go wrong
+        if [ $? -ne 0 ]; then
+            sleep 1
         fi
-
-        # Build in some latency
-        sleep 1
 
         # Block until some source file changes
         inotifywait -qq -e create,delete,modify,move -r src/;
-        clear
+
+        # Clear screen, but not scroll buffer
+        clear -x
     done
 }
