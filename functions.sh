@@ -71,7 +71,7 @@ function retry {
 }
 
 
-# Rust Run and Run and Run
+# Rust run and run and run
 function rrun {
     while true
     do
@@ -85,7 +85,27 @@ function rrun {
         # Block until some source file changes
         inotifywait -qq -e create,delete,modify,move -r src/;
 
-        # Clear screen, but not scroll buffer
-        clear -x
+        # Clear screen
+        clear
+    done
+}
+
+
+# Rust test and test and test
+function rtest {
+    while true
+    do
+        cargo test -q "$@"
+
+        # Build in some latency when things go wrong
+        if [ $? -ne 0 ]; then
+            sleep 1
+        fi
+
+        # Block until some source file changes
+        inotifywait -qq -e create,delete,modify,move -r src/;
+
+        # Clear screen
+        clear
     done
 }
