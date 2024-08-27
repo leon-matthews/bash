@@ -1,0 +1,35 @@
+# .profile
+###########
+
+# Options
+umask 002
+
+# Include .bashrc
+if [ -n "$BASH_VERSION" ]; then
+    if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+    fi
+fi
+
+# Add MacPorts to Path?
+if [ -d /opt/local/bin ] ; then
+    PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+fi
+
+# Activate Cargo/Rust?
+FILE="$HOME/.cargo/env"
+if [ -f FILE ] ; then
+    . FILE
+fi
+
+# Add ~/bin to PATH?
+FOLDER="$HOME/bin"
+if [ -d "$FOLDER" ] ; then
+    PATH="$FOLDER:$PATH"
+fi
+
+# Add ~/.local/bin to PATH?
+FOLDER="$HOME/.local/bin"
+if [ -d "$FOLDER" ] ; then
+    PATH="$FOLDER:$PATH"
+fi
