@@ -18,8 +18,8 @@ fi
 
 # Activate Cargo/Rust?
 FILE="$HOME/.cargo/env"
-if [ -f FILE ] ; then
-    . FILE
+if [ -f "$FILE" ] ; then
+    source "$FILE"
 fi
 
 # Add ~/bin to PATH?
