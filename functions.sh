@@ -103,7 +103,7 @@ function rtest {
         fi
 
         # Block until some source file changes
-        inotifywait -qq -e create,delete,modify,move -r src/;
+        inotifywait -qq -e create,delete,modify,move -r src/ -r tests/;
 
         # Clear screen
         clear
