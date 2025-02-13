@@ -16,10 +16,17 @@ if [ -d /opt/local/bin ] ; then
     PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 fi
 
-# Activate Cargo/Rust?
+# Cargo/Rust?
 FILE="$HOME/.cargo/env"
 if [ -f "$FILE" ] ; then
     source "$FILE"
+fi
+
+# Go?
+export GOPATH=$HOME/.go
+FOLDER="$GOPATH/bin"
+if [ -d "$FOLDER" ] ; then
+    PATH="$FOLDER:$PATH"
 fi
 
 # Add ~/bin to PATH?
